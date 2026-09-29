@@ -1,0 +1,13 @@
+============================================================
+                  SEMAPHORE DEMONSTRATION
+============================================================
+
+[SEM] Worker thread waiting for semaphore...
+[SEM] Controller thread releasing semaphore.
+[SEM] Worker thread acquired semaphore.
+[SEM] Worker thread accessing shared alarm resource.
+[SEM] Worker thread releasing semaphore.
+[SEM] Semaphore synchronization completed.
+============================================================
+
+Test Status: PASS

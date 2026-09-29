@@ -1,0 +1,22 @@
+============================================================
+             DEADLOCK / CONCURRENCY HAZARD
+============================================================
+
+[DEADLOCK] Two threads will request resources in opposite order.
+[DEADLOCK] trylock() is used to safely detect the hazard.
+
+[DEADLOCK] Thread 1 attempting to lock Resource A...
+[DEADLOCK] Thread 1 acquired Resource A.
+[DEADLOCK] Thread 2 attempting to lock Resource B...
+[DEADLOCK] Thread 2 acquired Resource B.
+[DEADLOCK] Thread 1 attempting to lock Resource B...
+[DEADLOCK] Thread 1 could not acquire Resource B.
+[DEADLOCK] Potential deadlock detected.
+[DEADLOCK] Thread 2 attempting to lock Resource A...
+[DEADLOCK] Thread 2 acquired Resource A.
+
+[DEADLOCK] Concurrency hazard demonstration completed.
+[DEADLOCK] Program avoided a permanent deadlock.
+============================================================
+
+Test Status: PASS

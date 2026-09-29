@@ -1,0 +1,17 @@
+============================================================
+              RACE CONDITION DEMONSTRATION
+============================================================
+[RACE] Initial shared counter : 0
+[RACE] Each thread increments the counter 1,000,000 times.
+[RACE] Expected final value     : 2000000
+[RACE] Thread 1 started.
+[RACE] Thread 2 started.
+[RACE] Thread 1 completed.
+[RACE] Thread 2 completed.
+
+[RACE] Actual final value       : 1298760
+[RACE] Race condition detected.
+[RACE] Multiple threads accessed shared data concurrently.
+============================================================
+
+Test Status: PASS
