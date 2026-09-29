@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ChronoOS | Productivity System</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-clock"></i>
+            </div>
+
+            <div>
+                <h2>ChronoOS</h2>
+                <span>Productivity System</span>
+            </div>
+        </div>
+
+        <nav class="navigation">
+
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-bell"></i>
+                <span>Alarms</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-note-sticky"></i>
+                <span>Reminders</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-earth-americas"></i>
+                <span>World Clock</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-bullseye"></i>
+                <span>Focus Mode</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-stopwatch"></i>
+                <span>Stopwatch</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-hourglass-half"></i>
+                <span>Timer</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+
+            <div class="system-status">
+                <span class="status-dot"></span>
+
+                <div>
+                    <strong>System Online</strong>
+                    <small>ChronoOS Core</small>
+                </div>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div>
+                <p class="welcome-small">WELCOME BACK</p>
+                <h1>Good Evening, Varshitha</h1>
+            </div>
+
+            <div class="topbar-actions">
+
+                <button class="icon-button">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="notification-dot"></span>
+                </button>
+
+                <button class="profile">
+                    <div class="profile-avatar">
+                        V
+                    </div>
+
+                    <div class="profile-info">
+                        <strong>Varshitha</strong>
+                        <span>Student</span>
+                    </div>
+
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- CLOCK HERO -->
+        <section class="clock-section">
+
+            <div class="clock-card">
+
+                <div class="clock-content">
+
+                    <p id="current-date">
+                        Monday, September 28
+                    </p>
+
+                    <div id="current-time">
+                        08:53:00 PM
+                    </div>
+
+                    <span class="timezone-label">
+                        Asia/Kolkata · IST
+                    </span>
+
+                </div>
+
+                <div class="clock-decoration">
+                    <i class="fa-regular fa-clock"></i>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- STAT CARDS -->
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon alarm-icon">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+
+                <div class="stat-info">
+                    <span>Active Alarms</span>
+                    <strong>03</strong>
+                </div>
+
+                <span class="stat-arrow">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon reminder-icon">
+                    <i class="fa-solid fa-note-sticky"></i>
+                </div>
+
+                <div class="stat-info">
+                    <span>Reminders</span>
+                    <strong>05</strong>
+                </div>
+
+                <span class="stat-arrow">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon focus-icon">
+                    <i class="fa-solid fa-bullseye"></i>
+                </div>
+
+                <div class="stat-info">
+                    <span>Focus Time</span>
+                    <strong>02h 35m</strong>
+                </div>
+
+                <span class="stat-arrow">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon system-icon">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+
+                <div class="stat-info">
+                    <span>System Status</span>
+                    <strong class="online-text">ONLINE</strong>
+                </div>
+
+                <span class="online-dot"></span>
+
+            </div>
+
+        </section>
+
+
+        <!-- DASHBOARD GRID -->
+        <section class="dashboard-grid">
+
+
+            <!-- NEXT ALARM -->
+            <div class="dashboard-card next-alarm">
+
+                <div class="card-header">
+
+                    <div>
+                        <p class="card-label">NEXT ALARM</p>
+                        <h2>Morning Study</h2>
+                    </div>
+
+                    <div class="card-icon">
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
+
+                </div>
+
+                <div class="alarm-time">
+                    06:30
+                    <span>AM</span>
+                </div>
+
+                <p class="alarm-info">
+                    <i class="fa-regular fa-calendar"></i>
+                    Tomorrow · Weekdays
+                </p>
+
+                <button class="primary-button">
+                    <i class="fa-solid fa-plus"></i>
+                    Add Alarm
+                </button>
+
+            </div>
+
+
+            <!-- FOCUS -->
+            <div class="dashboard-card focus-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <p class="card-label">FOCUS SESSION</p>
+                        <h2>Ready to focus?</h2>
+                    </div>
+
+                    <div class="card-icon focus-card-icon">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+
+                </div>
+
+                <p class="card-description">
+                    Start a distraction-free session and concentrate
+                    on what matters.
+                </p>
+
+                <div class="focus-preview">
+                    <span>25:00</span>
+                    <small>Focus Duration</small>
+                </div>
+
+                <button class="focus-button">
+                    <i class="fa-solid fa-play"></i>
+                    Start Focus Session
+                </button>
+
+            </div>
+
+
+            <!-- WORLD CLOCK -->
+            <div class="dashboard-card world-clock-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <p class="card-label">WORLD CLOCK</p>
+                        <h2>Time Around The World</h2>
+                    </div>
+
+                    <div class="card-icon">
+                        <i class="fa-solid fa-earth-americas"></i>
+                    </div>
+
+                </div>
+
+                <div class="world-clocks">
+
+                    <div class="world-time">
+                        <div>
+                            <strong>🇮🇳 Hyderabad</strong>
+                            <span>IST</span>
+                        </div>
+
+                        <b>08:53 PM</b>
+                    </div>
+
+                    <div class="world-time">
+                        <div>
+                            <strong>🇬🇧 London</strong>
+                            <span>GMT</span>
+                        </div>
+
+                        <b>03:23 PM</b>
+                    </div>
+
+                    <div class="world-time">
+                        <div>
+                            <strong>🇺🇸 New York</strong>
+                            <span>EDT</span>
+                        </div>
+
+                        <b>10:23 AM</b>
+                    </div>
+
+                    <div class="world-time">
+                        <div>
+                            <strong>🇯🇵 Tokyo</strong>
+                            <span>JST</span>
+                        </div>
+
+                        <b>12:53 AM</b>
+                    </div>
+
+                </div>
+
+                <button class="secondary-button">
+                    <i class="fa-solid fa-plus"></i>
+                    Add Time Zone
+                </button>
+
+            </div>
+
+
+            <!-- REMINDERS -->
+            <div class="dashboard-card reminders-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <p class="card-label">STICKY REMINDERS</p>
+                        <h2>Upcoming</h2>
+                    </div>
+
+                    <div class="card-icon reminder-card-icon">
+                        <i class="fa-solid fa-note-sticky"></i>
+                    </div>
+
+                </div>
+
+                <div class="reminder-list">
+
+                    <div class="reminder-item">
+                        <span class="reminder-color"></span>
+
+                        <div>
+                            <strong>Submit Assignment</strong>
+                            <small>Tomorrow · 09:00 AM</small>
+                        </div>
+
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+
+
+                    <div class="reminder-item">
+                        <span class="reminder-color"></span>
+
+                        <div>
+                            <strong>DSA Practice</strong>
+                            <small>Today · 08:00 PM</small>
+                        </div>
+
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+
+
+                    <div class="reminder-item">
+                        <span class="reminder-color"></span>
+
+                        <div>
+                            <strong>Project Review</strong>
+                            <small>Friday · 10:00 AM</small>
+                        </div>
+
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+
+                </div>
+
+                <button class="secondary-button">
+                    View All Reminders
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- QUICK TOOLS -->
+        <section class="quick-tools">
+
+            <div class="section-title">
+                <div>
+                    <p class="card-label">QUICK TOOLS</p>
+                    <h2>Manage Your Time</h2>
+                </div>
+            </div>
+
+            <div class="tools-grid">
+
+                <button class="tool-card">
+                    <i class="fa-solid fa-stopwatch"></i>
+                    <span>Stopwatch</span>
+                    <small>Track elapsed time</small>
+                </button>
+
+                <button class="tool-card">
+                    <i class="fa-solid fa-hourglass-half"></i>
+                    <span>Countdown</span>
+                    <small>Set a timer</small>
+                </button>
+
+                <button class="tool-card">
+                    <i class="fa-solid fa-note-sticky"></i>
+                    <span>New Reminder</span>
+                    <small>Create sticky note</small>
+                </button>
+
+                <button class="tool-card">
+                    <i class="fa-solid fa-bell"></i>
+                    <span>New Alarm</span>
+                    <small>Schedule an alarm</small>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer>
+
+            <span>
+                © 2026 ChronoOS
+            </span>
+
+            <span>
+                Linux Productivity & Time Management System
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>

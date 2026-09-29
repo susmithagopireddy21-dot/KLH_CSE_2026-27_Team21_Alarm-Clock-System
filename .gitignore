@@ -1,0 +1,20 @@
+# Compiled executable
+chronoos
+
+# Object files
+*.o
+
+# Temporary files
+*.tmp
+*.swp
+
+# Editor files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+
+# Backup files
+src/main_backup.c
+website/index.html.save
