@@ -16,13 +16,15 @@
 
 ## Abstract
 
-ChronoOS is a Linux-based alarm management and time-management system developed using C and POSIX/Linux system programming concepts. The project demonstrates how operating-system mechanisms such as process creation, signals, inter-process communication, file-system operations, memory management, memory-mapped files, and POSIX threads can be integrated into a practical application.
+ChronoOS is a Linux-based alarm management and time-management system developed using C programming and POSIX/Linux system programming interfaces.
 
-When an alarm process is created, the parent process creates a child process using `fork()`. The child process waits for the specified duration using `alarm()` and `pause()`. When the timer expires, the operating system generates `SIGALRM`, which is handled by the child process. The parent process can also terminate an active alarm process using `kill()` and `SIGTERM`.
+When an alarm is created, the parent process creates a child process using `fork()`. The child process waits for the specified duration using `alarm()` and `pause()`. When the alarm expires, the `SIGALRM` signal is generated and handled by the child process.
 
-ChronoOS also demonstrates anonymous pipes, named FIFOs, signal-based IPC, dynamic memory allocation, process memory inspection, file I/O using Linux system calls, memory-mapped file I/O, POSIX threads, race conditions, and mutex-based synchronization.
+The parent process can cancel an active alarm by sending `SIGTERM` using `kill()`. Alarm information is stored in `alarms.txt` using Linux file-system calls such as `open()`, `write()`, `read()`, and `close()`.
 
-The project is designed to provide a practical demonstration of Linux operating-system concepts through a single integrated application.
+ChronoOS also demonstrates anonymous pipes, named FIFOs, signal-based inter-process communication, dynamic memory allocation, memory inspection, memory-mapped files, POSIX threads, race conditions, mutexes, condition variables, semaphores, and deadlock/concurrency hazards.
+
+The project integrates multiple Operating System concepts into a single practical Linux application.
 
 ---
 
@@ -41,7 +43,9 @@ The project is designed to provide a practical demonstration of Linux operating-
 * Implement memory-mapped file I/O using `mmap()`.
 * Demonstrate POSIX threads.
 * Demonstrate race conditions and mutex synchronization.
-* Integrate multiple operating-system concepts into one application.
+* Demonstrate condition variables and semaphores.
+* Demonstrate deadlock and concurrency hazards safely.
+* Integrate multiple Operating System concepts into one application.
 
 ---
 
@@ -91,6 +95,10 @@ The project is designed to provide a practical demonstration of Linux operating-
 * Shared data demonstration
 * Race-condition demonstration
 * Mutex-based synchronization
+* Condition-variable synchronization
+* Semaphore-based synchronization
+* Deadlock/concurrency hazard demonstration
+* Safe deadlock detection using `pthread_mutex_trylock()`
 
 ---
 
@@ -107,6 +115,7 @@ The project is designed to provide a practical demonstration of Linux operating-
 * POSIX Threads
 * File-System APIs
 * Memory Management
+* Synchronization Primitives
 
 ---
 
@@ -154,127 +163,110 @@ ChronoOS/
 ├── reports/
 │
 └── website/
-```
 
----
-
-## Requirements
+Requirements
 
 The project requires:
 
-* Ubuntu/Linux environment
-* GCC compiler
-* POSIX-compatible system APIs
-* POSIX Threads library
+Ubuntu/Linux environment
+GCC compiler
+POSIX-compatible system APIs
+POSIX Threads library
 
-The project can be executed directly in Ubuntu or through WSL2 with Ubuntu.
+The project can be executed directly in Ubuntu or through WSL2 on Windows.
 
----
-
-## Compilation
-
-From the project root directory, run:
-
-```bash
+Compilation
 gcc -Wall -Wextra src/main.c src/alarm.c src/signals.c src/process.c src/ipc.c src/fifo.c src/memory.c src/filesystem.c src/threads.c -Iinclude -pthread -o chronoos
-```
 
----
-
-## Execution
-
-Run the compiled application using:
-
-```bash
+Execution
 ./chronoos
-```
 
-The application provides a menu-based interface for demonstrating the implemented operating-system concepts.
+The application provides a menu-based interface for demonstrating the implemented Operating System concepts.
 
----
+Synchronization Demonstrations
 
-## Operating System Concepts Demonstrated
+The following menu options demonstrate the major thread-synchronization concepts:
 
-| Concept                 | Implementation                           |
-| ----------------------- | ---------------------------------------- |
-| Process Creation        | `fork()`                                 |
-| Process Identification  | `getpid()`, `getppid()`                  |
-| Process Synchronization | `waitpid()`                              |
-| Alarm Scheduling        | `alarm()`                                |
-| Signal Handling         | `SIGALRM`, `SIGTERM`, `SIGUSR1`          |
-| Process Control         | `kill()`                                 |
-| Anonymous IPC           | `pipe()`                                 |
-| Named IPC               | `mkfifo()`                               |
-| File I/O                | `open()`, `read()`, `write()`, `close()` |
-| Memory Management       | `malloc()`, `free()`                     |
-| Memory Inspection       | `/proc/self/status`                      |
-| Memory Mapping          | `mmap()`, `munmap()`                     |
-| Multithreading          | POSIX `pthread`                          |
-| Race Condition          | Shared counter demonstration             |
-| Synchronization         | `pthread_mutex_t`                        |
+13. Mutex Synchronization
+14. Condition Variable
+15. Semaphore
+16. Deadlock / Concurrency Hazard
+17. OS Diagnostics
+18. Exit
 
----
+Operating System Concepts Demonstrated
+Concept	Implementation
+Process Creation	fork()
+Process Identification	getpid(), getppid()
+Process Synchronization	waitpid()
+Alarm Scheduling	alarm()
+Signal Handling	SIGALRM, SIGTERM, SIGUSR1
+Process Control	kill()
+Anonymous IPC	pipe()
+Named IPC	mkfifo()
+File I/O	open(), read(), write(), close()
+Memory Management	malloc(), free()
+Memory Inspection	/proc/self/status
+Memory Mapping	mmap(), munmap()
+Multithreading	POSIX pthread
+Race Condition	Shared counter demonstration
+Mutex Synchronization	pthread_mutex_lock(), pthread_mutex_unlock()
+Condition Variables	pthread_cond_wait(), pthread_cond_signal()
+Semaphore Synchronization	sem_wait(), sem_post()
+Deadlock / Concurrency Hazard	Opposite lock ordering with pthread_mutex_trylock()
 
-## Current Phase Status
+Current Phase Status
 
-**Project Phase:** Development and OS Concept Integration
+Project Phase: Development and OS Concept Integration
 
-### Completed
+Completed
+Alarm management
+Linux file-based alarm storage
+Process creation using fork()
+Parent-child process management
+alarm() and SIGALRM
+Alarm cancellation using SIGTERM
+Anonymous pipe
+Named FIFO
+Signal-based IPC
+Dynamic memory demonstration
+Process memory inspection
+File-system I/O
+Memory-mapped file I/O
+POSIX threads
+Shared data demonstration
+Race-condition demonstration
+Mutex synchronization
+Condition-variable synchronization
+Semaphore synchronization
+Deadlock/concurrency hazard demonstration
+Safe concurrency-hazard detection using pthread_mutex_trylock()
+In Progress
+Documentation and testing
+Integration and final validation
 
-* Alarm management
-* Linux file-based alarm storage
-* Process creation using `fork()`
-* Parent-child process management
-* `alarm()` and `SIGALRM`
-* Alarm cancellation using `SIGTERM`
-* Anonymous pipe
-* Named FIFO
-* Signal-based IPC
-* Dynamic memory demonstration
-* Process memory inspection
-* File-system I/O
-* Memory-mapped file I/O
-* POSIX threads
-* Race-condition demonstration
-* Mutex synchronization
-
-### In Progress
-
-* Additional synchronization mechanisms
-* Extended concurrency demonstrations
-* Documentation and testing
-* Integration and final validation
-
----
-
-## Safety and Repository Guidelines
+Safety and Repository Guidelines
 
 The repository must not contain:
 
-* Passwords
-* API keys
-* Access tokens
-* Private credentials
-* Confidential institutional data
-* Licensed datasets that cannot be redistributed
+Passwords
+API keys
+Access tokens
+Private credentials
+Confidential institutional data
+Licensed datasets that cannot be redistributed
 
-Generated binaries and temporary backup files are excluded through `.gitignore`.
+Generated binaries and temporary backup files are excluded through .gitignore.
 
----
+Future Enhancements
+Extended automated testing
+Improved documentation
+Web-based ChronoOS interface
+Integration between the web interface and the Linux-based ChronoOS system
+Additional monitoring and reporting features
 
-## Future Enhancements
+Team Repository
 
-* Advanced synchronization using condition variables and semaphores
-* Additional concurrency and deadlock demonstrations
-* Extended automated testing
-* Improved documentation
-* Web-based ChronoOS interface
-* Integration between the web interface and the Linux-based ChronoOS components
+This project is maintained as a team repository for the KLH CSE 2026-27 academic project.
 
----
-
-## Team Repository
-
-This project is maintained as a team repository for the KLH CSE 2026–27 academic project.
-
-Each team member contributes through their own GitHub account so that individual contributions can be verified through Git history.
+Each team member contributes through their own GitHub account while following the shared repository structure and version-control workflow.

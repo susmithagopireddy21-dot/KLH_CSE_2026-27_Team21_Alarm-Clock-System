@@ -78,8 +78,11 @@ printf(" 10. Memory-Mapped File I/O\n");
 printf(" 11. POSIX Threads\n");
 printf(" 12. Race Condition\n");
 printf(" 13. Mutex Synchronization\n");
-printf(" 14. OS Diagnostics\n");
-printf(" 15. Exit\n");
+printf(" 14. Condition Variable\n");
+printf(" 15. Semaphore\n");
+printf(" 16. Deadlock / Concurrency Hazard\n");
+printf(" 17. OS Diagnostics\n");
+printf(" 18. Exit\n");
   printf("------------------------------------------------------------\n");
     printf(" Enter your choice: ");
 }
@@ -545,27 +548,59 @@ case 13:
 
     break;
 
+case 14:
+
+    demonstrate_condition_variable();
+
+    printf("\nPress Enter to continue...");
+
+    getchar();
+    getchar();
+
+    break;
+
             /* ------------------------------------------------
-               OS DIAGNOSTICS
-               ------------------------------------------------ */
+               OS DIAGNOSTIC               ------------------------------------------------ */
 
-            case 14:
+            case 15:
 
-                os_diagnostics();
+    demonstrate_semaphore();
 
-                printf("\nPress Enter to continue...");
+    printf("\nPress Enter to continue...");
 
-                getchar();
-                getchar();
+    getchar();
+    getchar();
 
-                break;
+    break;
+
+case 16:
+
+    demonstrate_deadlock();
+
+    printf("\nPress Enter to continue...");
+
+    getchar();
+    getchar();
+
+    break;
+
+case 17:
+
+    os_diagnostics();
+
+    printf("\nPress Enter to continue...");
+
+    getchar();
+    getchar();
+
+    break;
 
 
             /* ------------------------------------------------
                EXIT
                ------------------------------------------------ */
 
-            case 15:
+            case 18:
                 alarm(0);
 
                 printf("\n");
