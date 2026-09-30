@@ -355,17 +355,71 @@ check_alarm_process();
                ADD ALARM
                ------------------------------------------------ */
 
-            case 1:
+case 1:
+{
+    int old_alarm_count = alarm_count;
 
-                add_alarm(alarms, &alarm_count);
+    add_alarm(alarms, &alarm_count);
 
-                printf("\nPress Enter to continue...");
+    if (alarm_count > old_alarm_count)
+    {
+        if (active_alarm_pid > 0)
+        {
+            printf("\n[OS] An alarm process is already active.\n");
+            printf("[OS] Cancel the existing alarm before adding another scheduled alarm.\n");
+        }
+        else
+        {
+            time_t now = time(NULL);
+            struct tm current_time;
+            struct tm alarm_time;
 
-                getchar();
-                getchar();
+            localtime_r(&now, &current_time);
 
-                break;
+            alarm_time = current_time;
+            alarm_time.tm_hour = alarms[alarm_count - 1].hour;
+            alarm_time.tm_min = alarms[alarm_count - 1].minute;
+            alarm_time.tm_sec = 0;
 
+            time_t scheduled_time = mktime(&alarm_time);
+
+            if (scheduled_time <= now)
+            {
+                alarm_time.tm_mday += 1;
+                scheduled_time = mktime(&alarm_time);
+            }
+
+            int delay = (int)difftime(scheduled_time, now);
+
+            if (delay <= 0)
+            {
+                delay = 1;
+            }
+
+            printf("\n[OS] Scheduled alarm process starting...\n");
+            printf("[OS] Alarm will trigger in approximately %d seconds.\n", delay);
+
+            active_alarm_pid = create_alarm_process(delay);
+
+            if (active_alarm_pid < 0)
+            {
+                printf("[!] Failed to create scheduled alarm process.\n");
+            }
+            else
+            {
+                printf("[OS] Scheduled alarm process created successfully.\n");
+                printf("[OS] Child PID : %d\n", active_alarm_pid);
+            }
+        }
+    }
+
+    printf("\nPress Enter to continue...");
+
+    getchar();
+    getchar();
+
+    break;
+}
 
             /* ------------------------------------------------
                VIEW ALARMS
