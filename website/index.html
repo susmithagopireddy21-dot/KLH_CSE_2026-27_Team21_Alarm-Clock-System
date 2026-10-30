@@ -30,44 +30,50 @@
             </div>
         </div>
 
-        <nav class="navigation">
+```html
+<nav class="navigation">
 
-            <a href="#" class="nav-item active">
-                <i class="fa-solid fa-house"></i>
-                <span>Dashboard</span>
-            </a>
+    <a href="#" class="nav-item active" data-page="dashboard">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+    </a>
 
-            <a href="#" class="nav-item">
-                <i class="fa-solid fa-bell"></i>
-                <span>Alarms</span>
-            </a>
+    <a href="#" class="nav-item" data-page="alarms">
+        <i class="fa-solid fa-bell"></i>
+        <span>Alarms</span>
+    </a>
 
-            <a href="#" class="nav-item">
-                <i class="fa-solid fa-note-sticky"></i>
-                <span>Reminders</span>
-            </a>
+    <a href="#" class="nav-item" data-page="reminders">
+        <i class="fa-solid fa-note-sticky"></i>
+        <span>Reminders</span>
+    </a>
 
-            <a href="#" class="nav-item">
-                <i class="fa-solid fa-earth-americas"></i>
-                <span>World Clock</span>
-            </a>
+    <a href="#" class="nav-item" data-page="world-clock">
+        <i class="fa-solid fa-earth-americas"></i>
+        <span>World Clock</span>
+    </a>
 
-            <a href="#" class="nav-item">
-                <i class="fa-solid fa-bullseye"></i>
-                <span>Focus Mode</span>
-            </a>
+    <a href="#" class="nav-item" data-page="focus">
+        <i class="fa-solid fa-bullseye"></i>
+        <span>Focus Mode</span>
+    </a>
 
-            <a href="#" class="nav-item">
-                <i class="fa-solid fa-stopwatch"></i>
-                <span>Stopwatch</span>
-            </a>
+    <a href="#" class="nav-item" data-page="stopwatch">
+        <i class="fa-solid fa-stopwatch"></i>
+        <span>Stopwatch</span>
+    </a>
 
-            <a href="#" class="nav-item">
-                <i class="fa-solid fa-hourglass-half"></i>
-                <span>Timer</span>
-            </a>
+    <a href="#" class="nav-item" data-page="timer">
+        <i class="fa-solid fa-hourglass-half"></i>
+        <span>Timer</span>
+    </a>
 
-        </nav>
+    <a href="#" class="nav-item" data-page="settings">
+        <i class="fa-solid fa-gear"></i>
+        <span>Settings</span>
+    </a>
+
+</nav>
 
         <div class="sidebar-bottom">
 
@@ -94,6 +100,8 @@
     <main class="main-content">
 
         <!-- TOP BAR -->
+<!-- DASHBOARD PAGE -->
+<section data-dashboard-page="dashboard">
         <header class="topbar">
 
             <div>
@@ -471,7 +479,351 @@
             </div>
 
         </section>
+</section>
 
+<!-- ALARMS DASHBOARD -->
+<section data-dashboard-page="alarms" hidden>
+
+    <div class="page-heading">
+        <p class="welcome-small">CHRONOOS / ALARMS</p>
+        <h1>Alarm Management</h1>
+        <p>Manage your scheduled alarms.</p>
+    </div>
+
+    <div class="dashboard-card">
+        <div class="card-header">
+            <h2>Your Alarms</h2>
+            <button class="primary-button" id="openAlarmPageButton">
+                <i class="fa-solid fa-plus"></i>
+                Add Alarm
+            </button>
+        </div>
+
+        <div id="alarm-list">
+            <p>Your saved alarms will appear here.</p>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- STOPWATCH DASHBOARD -->
+<section data-dashboard-page="stopwatch" hidden>
+
+    <div class="page-heading">
+        <p class="welcome-small">CHRONOOS / STOPWATCH</p>
+        <h1>Task Stopwatch</h1>
+        <p>Assign a task, track elapsed time, and set a completion deadline.</p>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="dashboard-card">
+            <h2>Assign Your Task</h2>
+
+            <label for="stopwatchTask">Task Name</label>
+            <input
+                type="text"
+                id="stopwatchTask"
+                placeholder="e.g. Complete DSA assignment"
+            >
+
+            <h3>Task Time Limit</h3>
+
+            <div class="timer-inputs">
+                <div>
+                    <label for="taskHours">Hours</label>
+                    <input type="number" id="taskHours" min="0" max="99" value="0">
+                </div>
+
+                <div>
+                    <label for="taskMinutes">Minutes</label>
+                    <input type="number" id="taskMinutes" min="0" max="59" value="25">
+                </div>
+
+                <div>
+                    <label for="taskSeconds">Seconds</label>
+                    <input type="number" id="taskSeconds" min="0" max="59" value="0">
+                </div>
+            </div>
+
+            <div class="timer-actions">
+                <button class="primary-button" id="startTaskTimer">Start Task</button>
+                <button class="icon-button" id="pauseTaskTimer">Pause</button>
+                <button class="icon-button" id="resetTaskTimer">Reset</button>
+            </div>
+
+            <p id="taskTimerStatus" role="status">Ready to start your task.</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h2>Task Countdown</h2>
+            <div id="taskCountdownDisplay">00:25:00</div>
+            <p id="currentTaskName">No task started</p>
+
+            <hr>
+
+            <h2>Elapsed Stopwatch</h2>
+            <div id="stopwatchElapsedDisplay">00:00:00</div>
+
+            <div class="timer-actions">
+                <button class="primary-button" id="startStopwatch">Start Stopwatch</button>
+                <button class="icon-button" id="resetStopwatch">Reset Stopwatch</button>
+            </div>
+
+            <p id="stopwatchStatus" role="status">Ready</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TIMER DASHBOARD -->
+<section data-dashboard-page="timer" hidden>
+
+    <div class="page-heading">
+        <p class="welcome-small">CHRONOOS / TIMER</p>
+        <h1>Countdown Timer</h1>
+        <p>Set a duration, manage your countdown, and stay on track.</p>
+    </div>
+
+    <div class="timer-page-layout">
+
+        <!-- LEFT CARD: TIMER CONTROLS -->
+        <div class="dashboard-card">
+
+            <h2>Set Your Timer</h2>
+
+            <div class="timer-inputs">
+                <div>
+                    <label for="timerHours">Hours</label>
+                    <input type="number" id="timerHours" min="0" max="99" value="0">
+                </div>
+
+                <div>
+                    <label for="timerMinutes">Minutes</label>
+                    <input type="number" id="timerMinutes" min="0" max="59" value="5">
+                </div>
+
+                <div>
+                    <label for="timerSeconds">Seconds</label>
+                    <input type="number" id="timerSeconds" min="0" max="59" value="0">
+                </div>
+            </div>
+
+            <div class="timer-actions">
+                <button class="primary-button" id="startTimerButton">Start</button>
+                <button class="icon-button" id="pauseTimerButton">Pause</button>
+                <button class="icon-button" id="resetTimerButton">Reset</button>
+            </div>
+
+            <p id="timerStatus" role="status">Ready to start your timer.</p>
+
+        </div>
+
+        <!-- RIGHT CARD: COUNTDOWN DISPLAY -->
+        <div class="dashboard-card">
+
+            <h2>Timer Countdown</h2>
+
+            <div id="timerCountdownDisplay">00:05:00</div>
+
+            <p id="timerDisplayStatus">Your timer is ready.</p>
+
+            <hr>
+
+            <h2>Quick Presets</h2>
+
+            <div class="timer-actions">
+                <button class="icon-button timer-preset" data-minutes="5">5 Min</button>
+                <button class="icon-button timer-preset" data-minutes="10">10 Min</button>
+                <button class="icon-button timer-preset" data-minutes="15">15 Min</button>
+                <button class="icon-button timer-preset" data-minutes="30">30 Min</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- SETTINGS DASHBOARD -->
+<section data-dashboard-page="settings" hidden>
+
+    <div class="page-heading">
+        <p class="welcome-small">CHRONOOS / SETTINGS</p>
+        <h1>Settings</h1>
+        <p>Personalize your ChronoOS experience.</p>
+    </div>
+
+    <!-- APPEARANCE SETTINGS -->
+    <div class="dashboard-card settings-card">
+        <h2><i class="fa-solid fa-palette"></i> Appearance</h2>
+
+        <div class="settings-row">
+            <div>
+                <strong>Dark Mode</strong>
+                <p>Use the dark dashboard appearance.</p>
+            </div>
+            <label class="settings-switch">
+                <input type="checkbox" id="darkModeSetting" checked>
+                <span class="settings-slider"></span>
+            </label>
+        </div>
+
+        <div class="settings-row">
+            <div>
+                <strong>Accent Color</strong>
+                <p>Choose your preferred theme color.</p>
+            </div>
+            <select id="accentColorSetting">
+                <option value="#8b5cf6">Purple</option>
+                <option value="#3b82f6">Blue</option>
+                <option value="#ec4899">Pink</option>
+                <option value="#10b981">Green</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION SETTINGS -->
+    <div class="dashboard-card settings-card">
+        <h2><i class="fa-solid fa-bell"></i> Notifications</h2>
+
+        <div class="settings-row">
+            <div>
+                <strong>Browser Notifications</strong>
+                <p>Allow ChronoOS to show browser notifications.</p>
+            </div>
+            <label class="settings-switch">
+                <input type="checkbox" id="notificationSetting">
+                <span class="settings-slider"></span>
+            </label>
+        </div>
+
+        <div class="settings-row">
+            <div>
+                <strong>Alarm and Timer Sounds</strong>
+                <p>Enable sound alerts.</p>
+            </div>
+            <label class="settings-switch">
+                <input type="checkbox" id="soundSetting" checked>
+                <span class="settings-slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <!-- GENERAL SETTINGS -->
+    <div class="dashboard-card settings-card">
+        <h2><i class="fa-solid fa-clock"></i> General</h2>
+
+        <div class="settings-row">
+            <div>
+                <strong>Time Format</strong>
+                <p>Choose how time is displayed.</p>
+            </div>
+            <select id="timeFormatSetting">
+                <option value="12">12-hour</option>
+                <option value="24">24-hour</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- SAVE AND RESET -->
+    <div class="settings-actions">
+        <button class="primary-button" id="saveSettingsButton">
+            <i class="fa-solid fa-floppy-disk"></i>
+            Save Preferences
+        </button>
+
+        <button class="icon-button" id="resetSettingsButton">
+            Reset Settings
+        </button>
+    </div>
+
+    <p id="settingsStatus" role="status"></p>
+
+</section>
+
+<!-- REMINDERS DASHBOARD -->
+<section data-dashboard-page="reminders" hidden>
+
+    <div class="page-heading">
+        <p class="welcome-small">CHRONOOS / REMINDERS</p>
+        <h1>Reminders</h1>
+        <p>Create and manage your important reminders.</p>
+    </div>
+
+<div class="dashboard-card">
+    <h2><i class="fa-solid fa-note-sticky"></i> Add Reminder</h2>
+
+    <div class="settings-row">
+        <div>
+            <strong>Reminder Title</strong>
+            <p>What do you need to remember?</p>
+        </div>
+        <input type="text" id="reminderTitle"
+               placeholder="Enter reminder title">
+    </div>
+
+    <div class="settings-row">
+        <div>
+            <strong>Start Date and Time</strong>
+            <p>When should the reminder begin?</p>
+        </div>
+        <input type="datetime-local" id="reminderDateTime">
+    </div>
+
+    <div class="settings-row">
+        <div>
+            <strong>Reminder Type</strong>
+            <p>Choose how long it should remain active.</p>
+        </div>
+        <select id="reminderType">
+            <option value="once">One-time</option>
+            <option value="permanent">Permanent</option>
+            <option value="until">Until a specific date</option>
+        </select>
+    </div>
+
+    <div class="settings-row" id="repeatIntervalRow" hidden>
+        <div>
+            <strong>Repeat Every</strong>
+            <p>How often should you be reminded?</p>
+        </div>
+        <select id="reminderInterval">
+            <option value="15">15 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="60">1 hour</option>
+            <option value="360">6 hours</option>
+            <option value="1440">1 day</option>
+            <option value="10080">1 week</option>
+        </select>
+    </div>
+
+    <div class="settings-row" id="reminderEndRow" hidden>
+        <div>
+            <strong>End Date and Time</strong>
+            <p>When should this reminder expire?</p>
+        </div>
+        <input type="datetime-local" id="reminderEndDateTime">
+    </div>
+
+    <button class="primary-button" id="addReminderButton">
+        <i class="fa-solid fa-plus"></i> Add Reminder
+    </button>
+</div>
+
+    <div class="dashboard-card">
+        <h2><i class="fa-solid fa-list-check"></i> My Reminders</h2>
+        <div id="reminderList">
+            <p>No reminders added yet.</p>
+        </div>
+    </div>
+
+    <p id="reminderStatus" role="status"></p>
+
+</section>
 
         <!-- FOOTER -->
         <footer>
