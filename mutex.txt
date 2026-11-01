@@ -1,0 +1,17 @@
+============================================================
+             MUTEX SYNCHRONIZATION
+============================================================
+[MUTEX] Initial shared counter : 0
+[MUTEX] Each thread increments the counter 1,000,000 times.
+[MUTEX] Expected final value     : 2000000
+[MUTEX] Thread 1 started.
+[MUTEX] Thread 2 started.
+[MUTEX] Thread 1 completed.
+[MUTEX] Thread 2 completed.
+
+[MUTEX] Actual final value       : 2000000
+[MUTEX] Shared data protected successfully.
+[MUTEX] Race condition prevented using mutex.
+============================================================
+
+Test Status: PASS

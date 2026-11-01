@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AClock | Alarm Clock</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/upgrade.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-clock"></i>
+            </div>
+
+            <div>
+                <h2>AClock</h2>
+                <span>Alarm Clock</span>
+            </div>
+        </div>
+
+<nav class="navigation">
+
+    <a href="#" class="nav-item active" data-page="dashboard">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+    </a>
+
+    <a href="#" class="nav-item" data-page="alarms">
+        <i class="fa-solid fa-bell"></i>
+        <span>Alarms</span>
+    </a>
+
+    <a href="#" class="nav-item" data-page="reminders">
+        <i class="fa-solid fa-note-sticky"></i>
+        <span>Reminders</span>
+    </a>
+
+    <a href="#" class="nav-item" data-page="world-clock">
+        <i class="fa-solid fa-earth-americas"></i>
+        <span>World Clock</span>
+    </a>
+
+    <a href="#" class="nav-item" data-page="focus">
+        <i class="fa-solid fa-bullseye"></i>
+        <span>Focus Mode</span>
+    </a>
+
+    <a href="#" class="nav-item" data-page="holidays">
+        <i class="fa-regular fa-calendar-days"></i>
+        <span>Holidays</span>
+    </a>
+
+    <a href="#" class="nav-item" data-page="stopwatch">
+        <i class="fa-solid fa-stopwatch"></i>
+        <span>Stopwatch</span>
+    </a>
+
+    <a href="#" class="nav-item" data-page="timer">
+        <i class="fa-solid fa-hourglass-half"></i>
+        <span>Timer</span>
+    </a>
+
+    <a href="#" class="nav-item" data-page="settings">
+        <i class="fa-solid fa-gear"></i>
+        <span>Settings</span>
+    </a>
+
+</nav>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+<!-- DASHBOARD PAGE -->
+<section data-dashboard-page="dashboard" class="aclock-dashboard">
+  <header class="topbar aclock-topbar">
+    <div><p class="welcome-small">ACLOCK / DASHBOARD</p><h1>Your time, at a glance</h1><p class="aclock-subtitle">A simpler view of your schedule.</p></div>
+    <div class="topbar-actions"><button class="icon-button theme-toggle" id="themeToggle" type="button" aria-label="Switch theme" title="Switch theme"><i class="fa-solid fa-sun"></i></button></div>
+  </header>
+
+  <section class="aclock-time-hero" aria-label="Current local time">
+    <div class="aclock-time-copy">
+      <p class="card-label">YOUR LOCAL TIME</p>
+      <p id="current-date" class="aclock-date">Loading date…</p>
+      <div id="current-time" class="aclock-live-time">--:--:-- --</div>
+      <span class="timezone-label" id="aclockTimezoneLabel">Detecting local time zone…</span>
+    </div>
+    <div class="aclock-analog" role="img" aria-label="Live analog clock">
+      <svg viewBox="0 0 200 200" aria-hidden="true">
+        <circle class="aclock-clock-face" cx="100" cy="100" r="91" />
+        <g class="aclock-clock-ticks" id="aclockClockTicks"></g>
+        <text x="100" y="43" text-anchor="middle" class="aclock-clock-brand">ACLOCK</text>
+        <line id="aclockHourHand" class="aclock-hour-hand" x1="100" y1="100" x2="100" y2="66" />
+        <line id="aclockMinuteHand" class="aclock-minute-hand" x1="100" y1="100" x2="100" y2="49" />
+        <line id="aclockSecondHand" class="aclock-second-hand" x1="100" y1="108" x2="100" y2="39" />
+        <circle class="aclock-clock-pin" cx="100" cy="100" r="5" />
+      </svg>
+    </div>
+  </section>
+
+  <section class="aclock-dashboard-columns">
+    <article class="dashboard-card aclock-next-alarm">
+      <div class="aclock-card-heading"><span class="aclock-icon-chip"><i class="fa-solid fa-bell"></i></span><div><p class="card-label">NEXT ALARM</p><h2 id="aclockNextAlarmTitle">No alarms scheduled</h2></div></div>
+      <div class="aclock-next-time" id="aclockNextAlarmTime">--:-- <small>--</small></div>
+      <p id="aclockNextAlarmMeta" class="aclock-muted">Add an alarm to see it here.</p>
+      <div class="aclock-countdown" id="aclockAlarmCountdown" aria-live="polite">No upcoming alarm</div>
+      <button class="primary-button aclock-add-alarm" id="aclockAddAlarmButton" type="button"><i class="fa-solid fa-plus"></i> Add Alarm</button>
+    </article>
+
+    <article class="dashboard-card aclock-upcoming-card">
+      <div class="aclock-card-heading"><span class="aclock-icon-chip aclock-reminder-chip"><i class="fa-solid fa-calendar-check"></i></span><div><p class="card-label">YOUR SCHEDULE</p><h2>Upcoming reminders</h2></div></div>
+      <div id="aclockUpcomingReminders" class="aclock-upcoming-list"><p class="aclock-empty">Your upcoming reminders will appear here.</p></div>
+      <button class="secondary-button aclock-view-reminders" id="aclockViewRemindersButton" type="button">View all reminders <i class="fa-solid fa-arrow-right"></i></button>
+    </article>
+  </section>
+</section>
+
+<!-- ALARMS DASHBOARD -->
+<section data-dashboard-page="alarms" hidden>
+
+    <div class="page-heading">
+        <p class="welcome-small">CHRONOOS / ALARMS</p>
+        <h1>Alarm Management</h1>
+        <p>Manage your scheduled alarms.</p>
+    </div>
+
+    <div class="dashboard-card">
+        <div class="card-header">
+            <h2>Your Alarms</h2>
+            <button class="primary-button" id="openAlarmPageButton">
+                <i class="fa-solid fa-plus"></i>
+                Add Alarm
+            </button>
+        </div>
+
+        <div id="alarm-list">
+            <p>Your saved alarms will appear here.</p>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- WORLD CLOCK DASHBOARD -->
+<section data-dashboard-page="world-clock" hidden>
+    <div class="page-heading">
+        <p class="welcome-small">CHRONOOS / WORLD CLOCK</p>
+        <h1>Time Around the World</h1>
+        <p>Live local times for four major time zones.</p>
+    </div>
+    <div class="world-clock-add dashboard-card">
+      <label for="worldClockCity">Add a city</label>
+      <select id="worldClockCity">
+        <option value="Asia/Dubai|Dubai|United Arab Emirates">Dubai, UAE</option><option value="Asia/Singapore|Singapore|Singapore">Singapore</option><option value="Asia/Seoul|Seoul|South Korea">Seoul, South Korea</option><option value="Asia/Shanghai|Shanghai|China">Shanghai, China</option><option value="Asia/Kolkata|Mumbai|India">Mumbai, India</option><option value="Europe/Paris|Paris|France">Paris, France</option><option value="Europe/Berlin|Berlin|Germany">Berlin, Germany</option><option value="Africa/Cairo|Cairo|Egypt">Cairo, Egypt</option><option value="America/Los_Angeles|Los Angeles|United States">Los Angeles, USA</option><option value="America/Chicago|Chicago|United States">Chicago, USA</option><option value="America/Toronto|Toronto|Canada">Toronto, Canada</option><option value="Australia/Sydney|Sydney|Australia">Sydney, Australia</option><option value="Pacific/Auckland|Auckland|New Zealand">Auckland, New Zealand</option>
+      </select><button class="primary-button" id="addWorldClockButton" type="button"><i class="fa-solid fa-plus"></i> Add city</button>
+    </div>
+    <div class="chronoos-world-grid" id="worldClockGrid">
+        <article class="dashboard-card chronoos-world-card"><span>🇮🇳 INDIA</span><h2>Hyderabad</h2><p>Asia/Kolkata</p><strong class="chronoos-world-time" data-zone="Asia/Kolkata">--:--:--</strong></article>
+        <article class="dashboard-card chronoos-world-card"><span>🇬🇧 UNITED KINGDOM</span><h2>London</h2><p>Europe/London</p><strong class="chronoos-world-time" data-zone="Europe/London">--:--:--</strong></article>
+        <article class="dashboard-card chronoos-world-card"><span>🇺🇸 UNITED STATES</span><h2>New York</h2><p>America/New_York</p><strong class="chronoos-world-time" data-zone="America/New_York">--:--:--</strong></article>
+        <article class="dashboard-card chronoos-world-card"><span>🇯🇵 JAPAN</span><h2>Tokyo</h2><p>Asia/Tokyo</p><strong class="chronoos-world-time" data-zone="Asia/Tokyo">--:--:--</strong></article>
+    </div>
+
+    <section class="dashboard-card timezone-map-panel">
+        <div class="page-heading compact-heading"><p class="welcome-small">EXPLORE TIME ZONES</p><h2>Interactive Time-Zone Map</h2><p>Select a time-zone band to preview a representative city and its current local time.</p></div>
+        <div class="timezone-map" role="group" aria-label="Interactive world time zone map">
+            <div id="aclockWorldMap" class="aclock-world-map" role="application" aria-label="World map with time zone city markers"></div>
+            <div class="timezone-map-result" aria-live="polite"><div><span class="card-label">SELECTED CITY</span><h3 id="selectedZoneCity">Hyderabad</h3><p id="selectedZoneName">Asia/Kolkata · UTC+05:30</p></div><strong class="digital-display" id="selectedZoneTime">--:--:--</strong></div>
+            <div class="timezone-legend"><span><i class="legend-violet"></i> Hover over or select a red marker to see the city's local time.</span><small>Map tiles and borders are provided by OpenStreetMap contributors.</small></div>
+        </div>
+    </section>
+</section>
+
+<!-- FOCUS MODE -->
+<section data-dashboard-page="focus" hidden>
+    <div class="page-heading"><p class="welcome-small">CHRONOOS / FOCUS MODE</p><h1>Focus Studio</h1><p>Work in focused intervals, take intentional breaks, and track today's progress.</p></div>
+    <div class="focus-layout">
+        <div class="dashboard-card focus-session-card">
+            <span class="focus-mode-pill"><i class="fa-solid fa-bullseye"></i> DEEP WORK</span>
+            <label for="focusTaskName">What are you focusing on?</label><input id="focusTaskName" type="text" placeholder="e.g. Revise DSA graphs" maxlength="80">
+            <div class="focus-mode-tabs"><button class="focus-mode-tab active" data-focus-minutes="25" data-focus-type="Focus">Focus · 25 min</button><button class="focus-mode-tab" data-focus-minutes="5" data-focus-type="Short break">Short break · 5 min</button><button class="focus-mode-tab" data-focus-minutes="15" data-focus-type="Long break">Long break · 15 min</button></div>
+            <div class="focus-ring"><div><strong id="focusCountdown" class="digital-display">25:00</strong><span id="focusModeLabel">READY TO FOCUS</span></div></div>
+            <div class="focus-actions"><button class="primary-button" id="focusStartButton"><i class="fa-solid fa-play"></i> Start session</button><button class="icon-button" id="focusResetButton">Reset</button><button class="icon-button" id="focusSkipButton">Skip</button></div>
+            <p id="focusStatus" role="status">Choose a session and press Start when you're ready.</p>
+        </div>
+        <div class="dashboard-card focus-stats-card"><h2>Today's focus</h2><div class="focus-stat"><span>Completed sessions</span><strong id="focusSessionsDone">0</strong></div><div class="focus-stat"><span>Focused minutes</span><strong id="focusMinutesDone">0 min</strong></div><div class="focus-progress"><span id="focusProgressBar"></span></div><p class="muted-copy">Progress is saved in this browser, on this device.</p><button class="secondary-button" id="focusClearStats">Reset today's stats</button></div>
+    </div>
+</section>
+
+<!-- PUBLIC HOLIDAYS -->
+<section data-dashboard-page="holidays" hidden>
+    <div class="page-heading"><p class="welcome-small">CHRONOOS / CALENDAR</p><h1>Public Holidays</h1><p>Look up national and regional public holidays by country and year.</p></div>
+    <div class="dashboard-card holiday-controls"><div class="holiday-filter"><label for="holidayCountry">Country</label><select id="holidayCountry"><option value="IN" selected>India</option><option value="US">United States</option><option value="GB">United Kingdom</option><option value="JP">Japan</option><option value="AU">Australia</option><option value="CA">Canada</option><option value="DE">Germany</option><option value="FR">France</option><option value="SG">Singapore</option></select></div><div class="holiday-filter"><label for="holidayYear">Year</label><select id="holidayYear"><option>2026</option><option>2027</option><option>2025</option></select></div><button class="primary-button" id="loadHolidaysButton"><i class="fa-solid fa-magnifying-glass"></i> Show holidays</button></div>
+    <p class="holiday-source-note" id="holidayStatus" role="status">Choose a country and year to load public holidays.</p><div id="holidayList" class="holiday-list"><div class="dashboard-card holiday-empty">Select “Show holidays” to view the list.</div></div>
+    <p class="muted-copy">Holiday lists are provided by a public holiday data service when internet access is available. Observance can vary by state, region, and employer.</p>
+</section>
+
+<!-- STOPWATCH DASHBOARD -->
+<section data-dashboard-page="stopwatch" hidden>
+
+    <div class="page-heading">
+        <p class="welcome-small">CHRONOOS / STOPWATCH</p>
+        <h1>Task Stopwatch</h1>
+        <p>Assign a task, track elapsed time, and set a completion deadline.</p>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="dashboard-card">
+            <h2>Assign Your Task</h2>
+
+            <label for="stopwatchTask">Task Name</label>
+            <input
+                type="text"
+                id="stopwatchTask"
+                placeholder="e.g. Complete DSA assignment"
+            >
+
+            <h3>Task Time Limit</h3>
+
+            <div class="timer-inputs">
+                <div>
+                    <label for="taskHours">Hours</label>
+                    <input type="number" id="taskHours" min="0" max="99" value="0">
+                </div>
+
+                <div>
+                    <label for="taskMinutes">Minutes</label>
+                    <input type="number" id="taskMinutes" min="0" max="59" value="25">
+                </div>
+
+                <div>
+                    <label for="taskSeconds">Seconds</label>
+                    <input type="number" id="taskSeconds" min="0" max="59" value="0">
+                </div>
+            </div>
+
+            <div class="timer-actions">
+                <button class="primary-button" id="startTaskTimer">Start Task</button>
+                <button class="icon-button" id="pauseTaskTimer">Pause</button>
+                <button class="icon-button" id="resetTaskTimer">Reset</button>
+            </div>
+
+            <p id="taskTimerStatus" role="status">Ready to start your task.</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h2>Task Countdown</h2>
+            <div id="taskCountdownDisplay">00:25:00</div>
+            <p id="currentTaskName">No task started</p>
+
+            <hr>
+
+            <h2>Elapsed Stopwatch</h2>
+            <div id="stopwatchElapsedDisplay">00:00:00</div>
+
+            <div class="timer-actions">
+                <button class="primary-button" id="startStopwatch">Start Stopwatch</button>
+                <button class="icon-button" id="resetStopwatch">Reset Stopwatch</button>
+            </div>
+
+            <p id="stopwatchStatus" role="status">Ready</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TIMER DASHBOARD -->
+<section data-dashboard-page="timer" hidden>
+
+    <div class="page-heading">
+        <p class="welcome-small">CHRONOOS / TIMER</p>
+        <h1>Countdown Timer</h1>
+        <p>Set a duration, manage your countdown, and stay on track.</p>
+    </div>
+
+    <div class="timer-page-layout">
+
+        <!-- LEFT CARD: TIMER CONTROLS -->
+        <div class="dashboard-card">
+
+            <h2>Set Your Timer</h2>
+
+            <div class="timer-inputs">
+                <div>
+                    <label for="timerHours">Hours</label>
+                    <input type="number" id="timerHours" min="0" max="99" value="0">
+                </div>
+
+                <div>
+                    <label for="timerMinutes">Minutes</label>
+                    <input type="number" id="timerMinutes" min="0" max="59" value="5">
+                </div>
+
+                <div>
+                    <label for="timerSeconds">Seconds</label>
+                    <input type="number" id="timerSeconds" min="0" max="59" value="0">
+                </div>
+            </div>
+
+            <div class="timer-actions">
+                <button class="primary-button" id="startTimerButton">Start</button>
+                <button class="icon-button" id="pauseTimerButton">Pause</button>
+                <button class="icon-button" id="resetTimerButton">Reset</button>
+            </div>
+
+            <p id="timerStatus" role="status">Ready to start your timer.</p>
+
+        </div>
+
+        <!-- RIGHT CARD: COUNTDOWN DISPLAY -->
+        <div class="dashboard-card">
+
+            <h2>Timer Countdown</h2>
+
+            <div id="timerCountdownDisplay">00:05:00</div>
+
+            <p id="timerDisplayStatus">Your timer is ready.</p>
+
+            <hr>
+
+            <h2>Quick Presets</h2>
+
+            <div class="timer-actions">
+                <button class="icon-button timer-preset" data-minutes="5">5 Min</button>
+                <button class="icon-button timer-preset" data-minutes="10">10 Min</button>
+                <button class="icon-button timer-preset" data-minutes="15">15 Min</button>
+                <button class="icon-button timer-preset" data-minutes="30">30 Min</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- SETTINGS DASHBOARD -->
+<section data-dashboard-page="settings" hidden>
+
+    <div class="page-heading">
+        <p class="welcome-small">CHRONOOS / SETTINGS</p>
+        <h1>Settings</h1>
+        <p>Personalize your ChronoOS experience.</p>
+    </div>
+
+    <!-- APPEARANCE SETTINGS -->
+    <div class="dashboard-card settings-card">
+        <h2><i class="fa-solid fa-palette"></i> Appearance</h2>
+
+        <div class="settings-row">
+            <div>
+                <strong>Dark Mode</strong>
+                <p>Use the dark dashboard appearance.</p>
+            </div>
+            <label class="settings-switch">
+                <input type="checkbox" id="darkModeSetting" checked>
+                <span class="settings-slider"></span>
+            </label>
+        </div>
+
+        <div class="settings-row">
+            <div>
+                <strong>Accent Color</strong>
+                <p>Choose your preferred theme color.</p>
+            </div>
+            <select id="accentColorSetting">
+                <option value="#8b5cf6">Purple</option>
+                <option value="#3b82f6">Blue</option>
+                <option value="#ec4899">Pink</option>
+                <option value="#10b981">Green</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION SETTINGS -->
+    <div class="dashboard-card settings-card">
+        <h2><i class="fa-solid fa-bell"></i> Notifications</h2>
+
+        <div class="settings-row">
+            <div>
+                <strong>Browser Notifications</strong>
+                <p>Allow ChronoOS to show browser notifications.</p>
+            </div>
+            <label class="settings-switch">
+                <input type="checkbox" id="notificationSetting">
+                <span class="settings-slider"></span>
+            </label>
+        </div>
+
+        <div class="settings-row">
+            <div>
+                <strong>Alarm and Timer Sounds</strong>
+                <p>Enable sound alerts.</p>
+            </div>
+            <label class="settings-switch">
+                <input type="checkbox" id="soundSetting" checked>
+                <span class="settings-slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <!-- GENERAL SETTINGS -->
+    <div class="dashboard-card settings-card">
+        <h2><i class="fa-solid fa-clock"></i> General</h2>
+
+        <div class="settings-row">
+            <div>
+                <strong>Time Format</strong>
+                <p>Choose how time is displayed.</p>
+            </div>
+            <select id="timeFormatSetting">
+                <option value="12">12-hour</option>
+                <option value="24">24-hour</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- SAVE AND RESET -->
+    <div class="settings-actions">
+        <button class="primary-button" id="saveSettingsButton">
+            <i class="fa-solid fa-floppy-disk"></i>
+            Save Preferences
+        </button>
+
+        <button class="icon-button" id="resetSettingsButton">
+            Reset Settings
+        </button>
+    </div>
+
+    <p id="settingsStatus" role="status"></p>
+
+</section>
+
+<!-- REMINDERS DASHBOARD -->
+<section data-dashboard-page="reminders" hidden>
+
+    <div class="page-heading">
+        <p class="welcome-small">CHRONOOS / REMINDERS</p>
+        <h1>Reminders</h1>
+        <p>Create and manage your important reminders.</p>
+    </div>
+
+<div class="dashboard-card">
+    <h2><i class="fa-solid fa-note-sticky"></i> Add Reminder</h2>
+
+    <div class="settings-row">
+        <div>
+            <strong>Reminder Title</strong>
+            <p>What do you need to remember?</p>
+        </div>
+        <input type="text" id="reminderTitle"
+               placeholder="Enter reminder title">
+    </div>
+
+    <div class="settings-row">
+        <div>
+            <strong>Start Date and Time</strong>
+            <p>When should the reminder begin?</p>
+        </div>
+        <input type="datetime-local" id="reminderDateTime">
+    </div>
+
+    <div class="settings-row">
+        <div>
+            <strong>Reminder Type</strong>
+            <p>Choose how long it should remain active.</p>
+        </div>
+        <select id="reminderType">
+            <option value="once">One-time</option>
+            <option value="permanent">Permanent</option>
+            <option value="until">Until a specific date</option>
+        </select>
+    </div>
+
+    <div class="settings-row" id="repeatIntervalRow" hidden>
+        <div>
+            <strong>Repeat Every</strong>
+            <p>How often should you be reminded?</p>
+        </div>
+        <select id="reminderInterval">
+            <option value="15">15 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="60">1 hour</option>
+            <option value="360">6 hours</option>
+            <option value="1440">1 day</option>
+            <option value="10080">1 week</option>
+        </select>
+    </div>
+
+    <div class="settings-row" id="reminderEndRow" hidden>
+        <div>
+            <strong>End Date and Time</strong>
+            <p>When should this reminder expire?</p>
+        </div>
+        <input type="datetime-local" id="reminderEndDateTime">
+    </div>
+
+    <button class="primary-button" id="addReminderButton">
+        <i class="fa-solid fa-plus"></i> Add Reminder
+    </button>
+</div>
+
+    <div class="dashboard-card">
+        <h2><i class="fa-solid fa-list-check"></i> My Reminders</h2>
+        <div id="reminderList">
+            <p>No reminders added yet.</p>
+        </div>
+    </div>
+
+    <p id="reminderStatus" role="status"></p>
+
+</section>
+
+        <!-- FOOTER -->
+        <footer>
+
+            <span>
+                © 2026 AClock
+            </span>
+
+            <span>
+                Personal Alarm Clock & Time Tools
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <script src="js/app.js"></script>
+    <script src="js/upgrade.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="js/extra.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/dashboard.js"></script>
+
+</body>
+</html>

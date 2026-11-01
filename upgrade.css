@@ -1,0 +1,257 @@
+/* ChronoOS modern feature layer */
+.chronoos-upgrade-modal { max-height: 90vh; overflow-y: auto; }
+.chronoos-upgrade-modal label, .upgrade-field { display:block; margin: 12px 0; color:var(--text,#f4f6fb); font-weight:600; }
+.chronoos-upgrade-modal input[type="time"], .chronoos-upgrade-modal input[type="text"], .chronoos-upgrade-modal select { display:block; width:100%; margin-top:7px; padding:12px 13px; border:1px solid var(--border,rgba(255,255,255,.1)); border-radius:10px; background:var(--card,#111724); color:var(--text,#f4f6fb); font:inherit; }
+.weekday-picker { display:flex; flex-wrap:wrap; gap:7px; margin:10px 0; }
+.weekday-picker label { margin:0; cursor:pointer; }
+.weekday-picker input { position:absolute; opacity:0; pointer-events:none; }
+.weekday-picker span { display:inline-flex; align-items:center; justify-content:center; min-width:42px; padding:9px 10px; border-radius:12px; background:var(--card-hover,#151d2d); border:1px solid var(--border,rgba(255,255,255,.1)); color:var(--muted-light,#b8c0d0); }
+.weekday-picker input:checked + span { background:var(--primary,#7c5cff); color:white; border-color:transparent; }
+.upgrade-field small { color:var(--muted,#8c96aa); font-weight:400; }
+.upgrade-sound-row { display:grid; grid-template-columns:1fr auto; gap:10px; align-items:end; }
+.upgrade-sound-row .secondary-button { margin-bottom:12px; white-space:nowrap; }
+.upgrade-alarm-item { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:20px; margin:12px 0; border:1px solid var(--border,rgba(255,255,255,.08)); border-radius:18px; background:var(--card,#111724); }
+.upgrade-alarm-main { display:flex; align-items:center; gap:16px; min-width:0; }
+.upgrade-alarm-bell { width:46px;height:46px;flex:none;display:grid;place-items:center;border-radius:14px;background:color-mix(in srgb,var(--primary,#7c5cff) 20%,transparent);color:var(--primary-light,#9b83ff);font-size:27px; }
+.upgrade-alarm-time { font-size:clamp(1.5rem,3vw,2rem);font-weight:800;letter-spacing:-1px;color:var(--text,#f4f6fb); }
+.upgrade-alarm-time small { font-size:.8rem;letter-spacing:0;color:var(--primary-light,#9b83ff); }
+.upgrade-alarm-item h3 { margin:3px 0;color:var(--text,#f4f6fb);font-size:1rem; }
+.upgrade-alarm-item p,.upgrade-alarm-item small { display:block;margin-top:4px;color:var(--muted,#8c96aa);font-size:.82rem; }
+.upgrade-alarm-actions { display:flex;align-items:center;gap:8px;flex:none; }
+.upgrade-alarm-actions .icon-button { min-width:38px;min-height:38px; }
+.upgrade-toggle input { position:absolute;opacity:0; }
+.upgrade-toggle span { display:block;width:44px;height:25px;background:#596174;border-radius:30px;position:relative;cursor:pointer; }
+.upgrade-toggle span:after { content:"";position:absolute;top:3px;left:3px;width:19px;height:19px;background:white;border-radius:50%;transition:transform .2s; }
+.upgrade-toggle input:checked + span { background:var(--primary,#7c5cff); }
+.upgrade-toggle input:checked + span:after { transform:translateX(19px); }
+.upgrade-empty { color:var(--muted,#8c96aa);padding:20px 0; }
+.chronoos-ring-overlay { position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:22px;background:rgba(3,5,15,.86);backdrop-filter:blur(14px); }
+.chronoos-ring-panel { width:min(460px,100%);padding:35px;border-radius:26px;text-align:center;background:var(--card,#111724);border:1px solid var(--border,rgba(255,255,255,.12));color:var(--text,#f4f6fb);box-shadow:0 25px 100px #0008; }
+.chronoos-ring-icon { font-size:42px;margin-bottom:10px; }
+.chronoos-ring-panel>p:first-of-type { color:var(--primary-light,#9b83ff);font-size:.78rem;font-weight:800;letter-spacing:2px; }
+.chronoos-ring-panel h2 { margin:10px 0;font-size:1.8rem; }
+.chronoos-ring-panel>strong { display:block;font-size:2.4rem;margin:12px 0; }
+.chronoos-ring-actions { display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:24px; }
+.chronoos-lap-list { margin:14px 0 0;padding-left:25px;color:var(--muted-light,#b8c0d0); }
+.chronoos-lap-list li { padding:7px 0;border-bottom:1px solid var(--border,rgba(255,255,255,.08)); }
+body[data-theme="light"] { --bg:#f3f5fb;--sidebar:#ffffff;--card:#ffffff;--card-hover:#f0f2fa;--border:rgba(20,28,50,.12);--text:#20263a;--muted:#667085;--muted-light:#4b5568;background:#f3f5fb;color:#20263a; }
+body[data-theme="light"] .main-content { color:var(--text); }
+body[data-theme="light"] .dashboard-card,body[data-theme="light"] .stat-card,body[data-theme="light"] .clock-card { color:var(--text); }
+body[data-theme="light"] .upgrade-alarm-item,body[data-theme="light"] .chronoos-ring-panel { background:var(--card);color:var(--text); }
+@media(max-width:600px){.upgrade-alarm-item{align-items:flex-start;padding:14px;gap:10px}.upgrade-alarm-actions{gap:4px;flex-wrap:wrap;justify-content:flex-end}.upgrade-alarm-main{gap:10px}.upgrade-alarm-bell{width:36px;height:36px}.upgrade-sound-row{grid-template-columns:1fr}.upgrade-sound-row .secondary-button{margin:0 0 12px}.chronoos-ring-panel{padding:25px 18px}}
+
+.chronoos-world-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px; }
+.chronoos-world-card > span { color:var(--primary-light,#9b83ff);font-size:.75rem;font-weight:800;letter-spacing:1.5px; }
+.chronoos-world-card h2 { margin:12px 0 5px;color:var(--text,#f4f6fb); }
+.chronoos-world-card p { color:var(--muted,#8c96aa); }
+.chronoos-world-time { display:block;margin-top:24px;font-size:clamp(1.7rem,4vw,2.7rem);font-variant-numeric:tabular-nums;letter-spacing:-1px;color:var(--text,#f4f6fb); }
+@media(max-width:650px){.chronoos-world-grid{grid-template-columns:1fr;}}
+
+/* ChronoOS readability, digital clock, Focus Studio, holidays and time-zone map */
+:root { --chronoos-display-font:'Orbitron','Share Tech Mono','Courier New',monospace; }
+html { scroll-behavior:smooth; }
+body { overflow-x:hidden; font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif; }
+*,*::before,*::after { box-sizing:border-box; }
+.main-content { min-width:0; width:auto; }
+.main-content > section, [data-dashboard-page] { min-width:0; width:100%; }
+[hidden] { display:none !important; }
+.navigation .nav-item, .sidebar-bottom .nav-item { min-width:0; }
+.navigation .nav-item span, .sidebar-bottom .nav-item span { overflow-wrap:anywhere; }
+h1,h2,h3,h4,p,small,strong,span,label,button { overflow-wrap:anywhere; }
+.page-heading { margin:0 0 24px; max-width:100%; }
+.page-heading h1 { line-height:1.2; letter-spacing:-.035em; }
+.page-heading p:not(.welcome-small) { max-width:72ch; line-height:1.65; }
+.dashboard-grid,.stats-grid,.tools-grid,.timer-page-layout,.focus-layout,.chronoos-world-grid { min-width:0; }
+.dashboard-card,.stat-card,.clock-card { min-width:0; }
+#current-time,.digital-display,#timerCountdownDisplay,#taskCountdownDisplay,#stopwatchElapsedDisplay,.chronoos-world-time { font-family:var(--chronoos-display-font); font-variant-numeric:tabular-nums; font-feature-settings:'tnum'; letter-spacing:.035em; line-height:1.35; overflow-wrap:normal; white-space:nowrap; }
+#current-time { font-size:clamp(2.2rem,6.2vw,5.4rem); font-weight:700; letter-spacing:.045em; text-shadow:0 0 28px rgba(124,92,255,.18); }
+.digital-display { font-size:clamp(2rem,4.4vw,3.5rem); font-weight:700; }
+#timerCountdownDisplay,#taskCountdownDisplay,#stopwatchElapsedDisplay { font-size:clamp(1.8rem,4vw,3rem); max-width:100%; }
+button,input,select,textarea { max-width:100%; }
+button { line-height:1.35; white-space:normal; }
+.timezone-map-panel { margin-top:22px; overflow:hidden; }
+.compact-heading { margin-bottom:12px; }
+.compact-heading h2 { margin:6px 0; }
+.timezone-map { min-width:0; }
+.timezone-svg { display:block; width:100%; height:auto; color:var(--text,#f4f6fb); }
+.timezone-band { cursor:pointer; transition:opacity .15s,fill .15s; }
+.timezone-band:hover,.timezone-band:focus { opacity:.72 !important; outline:none; stroke:var(--text,#fff); stroke-width:2; }
+.timezone-map-result { display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; padding:20px; margin-top:12px; border:1px solid var(--border,rgba(255,255,255,.1)); border-radius:16px; background:var(--card-hover,#151d2d); }
+.timezone-map-result h3 { margin:7px 0; font-size:1.35rem; }
+.timezone-map-result p { margin:0; color:var(--muted,#8c96aa); }
+.timezone-map-result .digital-display { font-size:clamp(1.5rem,3.4vw,2.4rem); }
+.timezone-legend { display:flex; flex-wrap:wrap; align-items:center; gap:14px; padding:14px 4px 0; color:var(--muted,#8c96aa); font-size:.82rem; }
+.timezone-legend span { display:flex; align-items:center; gap:7px; }
+.timezone-legend i { width:10px;height:10px;border-radius:50%;display:inline-block; }
+.legend-violet { background:#7c5cff; }.legend-teal { background:#23b6a8; }
+.focus-layout { display:grid; grid-template-columns:minmax(0,1.65fr) minmax(250px,1fr); gap:22px; align-items:start; }
+.focus-session-card { text-align:center; }
+.focus-mode-pill { display:inline-flex; align-items:center; gap:8px; padding:8px 13px; border-radius:99px; background:rgba(124,92,255,.15); color:var(--primary-light,#a99aff); font-size:.76rem; font-weight:800; letter-spacing:1px; }
+.focus-session-card > label { display:block; text-align:left; margin:24px 0 8px; font-weight:700; }
+.focus-session-card input { width:100%; padding:13px 15px; border:1px solid var(--border,rgba(255,255,255,.1)); border-radius:12px; background:var(--card-hover,#151d2d); color:var(--text,#f4f6fb); font:inherit; }
+.focus-mode-tabs { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:18px 0 12px; }
+.focus-mode-tab { border:1px solid var(--border,rgba(255,255,255,.1)); border-radius:999px; padding:10px 13px; background:transparent; color:var(--muted-light,#b8c0d0); cursor:pointer; }
+.focus-mode-tab.active { background:var(--primary,#7c5cff); color:#fff; border-color:transparent; }
+.focus-ring { width:min(290px,75vw); aspect-ratio:1; margin:22px auto; display:grid; place-items:center; border-radius:50%; background:radial-gradient(circle at center,var(--card,#111724) 61%,transparent 62%),conic-gradient(var(--primary,#7c5cff) 0deg,rgba(124,92,255,.16) 0deg); border:1px solid var(--border,rgba(255,255,255,.12)); box-shadow:0 0 45px rgba(124,92,255,.1); }
+.focus-ring > div { display:flex; flex-direction:column; align-items:center; gap:12px; padding:10px; }
+.focus-ring .digital-display { font-size:clamp(2rem,5vw,3.2rem); }
+.focus-ring span { color:var(--muted,#8c96aa); font-size:.72rem; font-weight:800; letter-spacing:1.5px; }
+.focus-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
+#focusStatus { min-height:1.5em; color:var(--muted,#8c96aa); }
+.focus-stat { display:flex; justify-content:space-between; gap:12px; padding:18px 0; border-bottom:1px solid var(--border,rgba(255,255,255,.1)); }
+.focus-stat span,.muted-copy { color:var(--muted,#8c96aa); }
+.focus-stat strong { font-size:1.2rem; }
+.focus-progress { height:9px; margin:22px 0 12px; overflow:hidden; border-radius:99px; background:var(--card-hover,#242a3a); }
+.focus-progress span { display:block; width:0; height:100%; background:linear-gradient(90deg,#7c5cff,#23b6a8); border-radius:inherit; transition:width .2s; }
+.holiday-controls { display:flex; flex-wrap:wrap; align-items:end; gap:16px; }
+.holiday-filter { flex:1 1 180px; min-width:0; }
+.holiday-filter label { display:block; margin-bottom:7px; font-weight:700; }
+.holiday-filter select { width:100%; padding:12px 13px; border:1px solid var(--border,rgba(255,255,255,.1)); border-radius:10px; background:var(--card-hover,#151d2d); color:var(--text,#f4f6fb); font:inherit; }
+.holiday-source-note { color:var(--muted,#8c96aa); margin:14px 0; }
+.holiday-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.holiday-item { display:flex; gap:14px; align-items:center; min-width:0; }
+.holiday-date { flex:none; width:58px; min-height:60px; display:flex; flex-direction:column; justify-content:center; align-items:center; border-radius:12px; background:rgba(124,92,255,.15); color:var(--primary-light,#a99aff); font-weight:800; }
+.holiday-date small { font-size:.68rem; letter-spacing:1px; }
+.holiday-item h3 { margin:0 0 5px; font-size:1rem; }
+.holiday-item p { margin:0; color:var(--muted,#8c96aa); font-size:.85rem; }
+.holiday-empty { grid-column:1/-1; }
+body[data-theme="light"] .focus-session-card input,body[data-theme="light"] .holiday-filter select { background:#fff;color:#20263a; }
+@media(max-width:1000px) { .main-content { width:auto; } .focus-layout { grid-template-columns:1fr; } }
+@media(max-width:650px) { #current-time { font-size:clamp(1.8rem,9vw,3rem); } .holiday-list { grid-template-columns:1fr; } .timezone-map-result { padding:14px; } .timezone-map-result .digital-display { white-space:normal; } .focus-mode-tabs { align-items:stretch; } .focus-mode-tab { flex:1 1 130px; } }
+
+
+/* AClock usability polish */
+:root { color-scheme: dark; }
+body, .dashboard-card, .clock-card, .sidebar { transition: background-color .2s ease, color .2s ease; }
+.brand h2 { letter-spacing: -.04em; }
+.brand h2::first-letter { color: var(--primary-light); }
+.topbar { align-items:center; }
+.topbar-actions { display:flex; align-items:center; gap:12px; }
+.theme-toggle { width:44px; height:44px; border-radius:14px; }
+.sidebar-bottom { display:none !important; }
+.navigation { padding-bottom:20px; }
+#current-time { font-family:'Orbitron','Arial',sans-serif; font-weight:800; letter-spacing:.025em; line-height:1.18; font-variant-numeric:tabular-nums; overflow-wrap:normal; }
+.clock-content { min-width:0; }
+.clock-card { overflow:hidden; }
+.page-heading { max-width:100%; }
+.page-heading h1, .page-heading p { overflow-wrap:anywhere; }
+.dashboard-card { min-width:0; }
+.dashboard-card button, .timer-actions button { white-space:normal; word-break:normal; overflow-wrap:normal; min-width:max-content; }
+.timer-actions { display:flex; align-items:center; flex-wrap:wrap; gap:10px; }
+.timer-actions button { flex:0 1 auto; padding:12px 18px; width:auto; }
+.timer-inputs { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.timer-inputs > div { min-width:0; }
+.timer-inputs input { width:100%; min-width:0; }
+.timezone-map-panel { overflow:hidden; }
+.timezone-map { position:relative; overflow:hidden; min-height:260px; }
+.timezone-svg { display:block; width:100%; height:auto; min-height:260px; }
+.timezone-band { cursor:pointer; transition:opacity .15s ease, stroke .15s ease; }
+.timezone-band:hover, .timezone-band:focus, .timezone-band.selected { opacity:.68 !important; stroke:#ff5b5b; stroke-width:2.5; outline:none; }
+.timezone-hover-tip { position:absolute; z-index:10; display:none; min-width:170px; max-width:210px; padding:12px 14px; border:1px solid rgba(255,91,91,.65); border-radius:12px; background:rgba(10,13,23,.96); color:#f7f8ff; box-shadow:0 12px 35px #0007; pointer-events:none; }
+.timezone-hover-tip::before { content:""; display:inline-block; width:8px; height:8px; border-radius:50%; background:#ff5353; margin-right:7px; box-shadow:0 0 12px #ff5353; }
+.timezone-hover-tip.visible { display:block; }
+.timezone-hover-tip strong { font-size:.95rem; }
+.timezone-hover-tip span { display:block; padding:5px 0 0 15px; font-size:.82rem; color:#b9c7e8; font-variant-numeric:tabular-nums; }
+.holiday-controls { display:grid; grid-template-columns:minmax(180px,1fr) minmax(130px,.5fr) auto; align-items:end; gap:16px; }
+.holiday-filter { min-width:0; }
+.holiday-filter select { width:100%; }
+.holiday-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:16px; }
+.holiday-item { display:flex; align-items:center; gap:16px; padding:18px; }
+.holiday-item h3 { margin:0 0 6px; }
+.holiday-item p { line-height:1.5; overflow-wrap:anywhere; }
+.holiday-date { flex:0 0 62px; min-height:66px; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:14px; background:rgba(124,92,255,.16); border:1px solid rgba(124,92,255,.25); }
+.holiday-date span { font-size:1.5rem; font-weight:800; }
+.holiday-date small { color:var(--primary-light); font-weight:700; }
+body.light-mode {
+ --bg:#f3f6fc; --sidebar:#ffffff; --card:#ffffff; --card-hover:#eef2fb;
+ --border:rgba(22,34,58,.12); --text:#172033; --muted:#667085; --muted-light:#475467;
+ background:radial-gradient(circle at 80% 10%,rgba(124,92,255,.09),transparent 30%),var(--bg);
+ color:var(--text);
+}
+body.light-mode .sidebar { background:rgba(255,255,255,.96); }
+body.light-mode .dashboard-card, body.light-mode .stat-card { box-shadow:0 8px 24px rgba(26,39,67,.05); }
+body.light-mode .timezone-hover-tip { background:rgba(255,255,255,.97); color:#172033; }
+@media (max-width:900px) {
+ .holiday-controls { grid-template-columns:1fr 1fr; }
+ .holiday-controls #loadHolidaysButton { grid-column:1/-1; }
+ .holiday-list { grid-template-columns:1fr; }
+}
+@media (max-width:600px) {
+ .timer-inputs { grid-template-columns:1fr; }
+ .timer-actions button { flex:1 1 auto; }
+ #current-time { font-size:clamp(2rem,10vw,4rem); }
+ .timezone-map { min-height:180px; }
+ .timezone-svg { min-height:180px; }
+}
+
+.city-marker { cursor:pointer; outline:none; }
+.city-dot { fill:#ff4d5a; stroke:#fff; stroke-width:2; filter:drop-shadow(0 0 6px rgba(255,77,90,.9)); transition:r .15s ease; }
+.city-marker:hover .city-dot,.city-marker:focus .city-dot { r:9; fill:#ff2737; }
+
+/* Keep the home screen focused on the clock and next alarm. */
+[data-dashboard-page="dashboard"] .stats-grid { display:none !important; }
+[data-dashboard-page="dashboard"] .dashboard-grid { grid-template-columns:minmax(0,1fr) !important; }
+[data-dashboard-page="dashboard"] .dashboard-grid > .focus-card,
+[data-dashboard-page="dashboard"] .dashboard-grid > .world-clock-card,
+[data-dashboard-page="dashboard"] .dashboard-grid > .reminders-card { display:none !important; }
+[data-dashboard-page="dashboard"] .next-alarm { width:100%; }
+
+
+/* AClock simplified dashboard */
+.aclock-dashboard { max-width:1500px; margin:0 auto; }
+.aclock-topbar { margin-bottom:24px; }
+.aclock-subtitle { color:var(--muted,#8c96aa); margin-top:7px; }
+.aclock-time-hero { display:grid; grid-template-columns:minmax(0,1fr) 230px; align-items:center; gap:28px; padding:clamp(24px,4vw,48px); border:1px solid rgba(124,92,255,.3); border-radius:24px; background:radial-gradient(ellipse at 5% 0%,rgba(124,92,255,.16),transparent 55%),linear-gradient(125deg,var(--card,#111724),var(--bg,#090d16)); min-width:0; }
+.aclock-time-copy { min-width:0; }
+.aclock-date { margin:12px 0 6px; color:var(--muted-light,#b8c0d0); }
+.aclock-live-time { font-family:var(--chronoos-display-font,'Courier New',monospace); font-size:clamp(2.1rem,6.3vw,5.4rem); font-weight:800; line-height:1.25; letter-spacing:.035em; white-space:nowrap; font-variant-numeric:tabular-nums; color:var(--text,#f4f6fb); }
+.aclock-time-hero .timezone-label { display:inline-flex; margin-top:12px; padding:7px 11px; border-radius:99px; background:var(--card-hover,#151d2d); color:var(--muted-light,#b8c0d0); font-size:.78rem; }
+.aclock-analog { width:min(100%,220px); justify-self:center; aspect-ratio:1; }
+.aclock-analog svg { display:block;width:100%;height:auto;overflow:visible;filter:drop-shadow(0 8px 18px rgba(0,0,0,.15)); }
+.aclock-clock-face { fill:var(--card-hover,#151d2d); stroke:var(--border,rgba(255,255,255,.13));stroke-width:2; }
+.aclock-clock-ticks line { stroke:var(--muted-light,#b8c0d0);stroke-width:2;stroke-linecap:round; }
+.aclock-clock-ticks line.aclock-major-tick { stroke:var(--text,#f4f6fb);stroke-width:3; }
+.aclock-clock-brand { fill:var(--muted,#8c96aa);font:700 8px Inter, sans-serif;letter-spacing:2px; }
+.aclock-hour-hand,.aclock-minute-hand,.aclock-second-hand { stroke-linecap:round;transform-origin:100px 100px; }
+.aclock-hour-hand { stroke:var(--text,#f4f6fb);stroke-width:5; }
+.aclock-minute-hand { stroke:var(--primary-light,#a99aff);stroke-width:3.5; }
+.aclock-second-hand { stroke:#ff5c75;stroke-width:1.7; }
+.aclock-clock-pin { fill:#ff5c75;stroke:var(--card,#111724);stroke-width:2; }
+.aclock-dashboard-columns { display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;margin-top:22px;align-items:stretch; }
+.aclock-dashboard-columns .dashboard-card { min-width:0;padding:clamp(20px,2.4vw,30px);border-radius:22px; }
+.aclock-card-heading { display:flex;align-items:center;gap:13px;margin-bottom:20px; }
+.aclock-card-heading h2 { margin:5px 0 0;font-size:1.15rem;line-height:1.35;overflow-wrap:anywhere; }
+.aclock-icon-chip { width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:14px;background:rgba(124,92,255,.16);color:var(--primary-light,#a99aff);font-size:1.05rem; }
+.aclock-reminder-chip { background:rgba(35,182,168,.14);color:#38d9cb; }
+.aclock-next-time { margin:8px 0;font-size:clamp(2rem,4vw,3.25rem);font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:var(--text,#f4f6fb); }
+.aclock-next-time small { color:var(--primary-light,#a99aff);font-size:.43em;letter-spacing:0; }
+.aclock-muted { color:var(--muted,#8c96aa);line-height:1.6;margin:8px 0; }
+.aclock-countdown { display:inline-flex;align-items:center;min-height:38px;margin:12px 0 18px;padding:9px 12px;border-radius:11px;background:var(--card-hover,#151d2d);color:var(--muted-light,#b8c0d0);font-weight:700;font-variant-numeric:tabular-nums; }
+.aclock-add-alarm { display:flex;align-items:center;justify-content:center;gap:8px;width:100%; }
+.aclock-upcoming-list { display:grid;gap:0; }
+.aclock-upcoming-item { display:grid;grid-template-columns:4px minmax(0,1fr) auto;gap:13px;align-items:center;padding:14px 0;border-bottom:1px solid var(--border,rgba(255,255,255,.08)); }
+.aclock-upcoming-item:last-child { border-bottom:0; }
+.aclock-reminder-marker { width:4px;height:38px;border-radius:9px;background:linear-gradient(#a78bfa,#22d3ee); }
+.aclock-reminder-title { font-weight:700;color:var(--text,#f4f6fb);overflow-wrap:anywhere; }
+.aclock-reminder-date { display:block;margin-top:5px;color:var(--muted,#8c96aa);font-size:.8rem;line-height:1.45; }
+.aclock-reminder-time { font-size:.83rem;font-weight:700;color:var(--muted-light,#b8c0d0);text-align:right;white-space:nowrap; }
+.aclock-empty { padding:20px 0;color:var(--muted,#8c96aa);line-height:1.6; }
+.aclock-view-reminders { width:100%;margin-top:15px;display:flex;justify-content:center;align-items:center;gap:9px; }
+body.light-mode .aclock-time-hero { background:radial-gradient(ellipse at 5% 0%,rgba(124,92,255,.10),transparent 55%),linear-gradient(125deg,#fff,#f4f5ff); }
+body.light-mode .aclock-clock-face { fill:#f8f9ff; }
+@media(max-width:850px){.aclock-time-hero{grid-template-columns:minmax(0,1fr) 165px;gap:16px}.aclock-analog{width:160px}.aclock-dashboard-columns{grid-template-columns:1fr}}
+@media(max-width:540px){.aclock-time-hero{grid-template-columns:1fr;padding:22px}.aclock-analog{width:145px;grid-row:1;justify-self:start}.aclock-live-time{font-size:clamp(1.75rem,8vw,2.8rem)}.aclock-dashboard-columns{gap:15px}.aclock-reminder-time{font-size:.75rem}}
+
+
+
+/* Geographic map and expandable world-clock cards */
+.aclock-world-map { width:100%; height:clamp(340px,52vw,560px); min-height:320px; border-radius:16px; overflow:hidden; background:#d9e8ed; border:1px solid var(--border,rgba(255,255,255,.12)); z-index:1; }
+.aclock-world-map .leaflet-container { width:100%; height:100%; font-family:'Inter',sans-serif; }
+.aclock-map-tooltip { background:#fff!important; color:#202433!important; border:1px solid #e1e5ed!important; border-radius:9px!important; box-shadow:0 8px 25px #10182833!important; padding:8px 10px!important; line-height:1.5; }
+.aclock-map-tooltip:before { border-top-color:#fff!important; }
+.map-fallback { padding:24px; color:#283044; }
+.world-clock-add { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin:0 0 18px; padding:16px; }
+.world-clock-add label { font-weight:700; }
+.world-clock-add select { flex:1 1 220px; min-width:180px; padding:12px; border:1px solid var(--border); border-radius:10px; background:var(--card-hover); color:var(--text); font:inherit; }
+.world-clock-remove { margin-top:14px; padding:8px 12px; }
+@media(max-width:600px){.aclock-world-map{height:360px}.world-clock-add{align-items:stretch;flex-direction:column}.world-clock-add select{width:100%;}}
